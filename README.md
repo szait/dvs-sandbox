@@ -1,4 +1,4 @@
-# Data Platform Sandbox Environment with Docker-Compose
+# Data Platform Sandbox Environment
 
 ## Getting Started
 
