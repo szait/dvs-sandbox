@@ -41,9 +41,9 @@ services:
       HYDRA_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       HYDRA_HTTP_AUTHENTICATOR: hydra.streams.auth.NoSecurityAuthenticator
       HYDRA_STREAMS_FLYWAY_ENABLED: 'false'
-      DATABASE_URL: jdbc:postgresql://postgres/kstreams
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_URL: jdbc:postgresql://postgres/postgres
+      DATABASE_USER: hydra_root
+      DATABASE_PASSWORD: ""
       CONSTRUCTR_COORDINATION_HOST: consul
       AKKA_REMOTE_ARTERY_ADVANCED_IDLE_CPU_LEVEL: 1
       CONSUL_HOST: consul
@@ -95,3 +95,10 @@ services:
     ports:
       - 8500:8500
       - 8300:8300
+
+  bootstrap-postgres:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    links:
+      - postgres
