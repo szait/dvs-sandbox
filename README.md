@@ -70,4 +70,4 @@ alias dps='cd $COMPOSER_HOME && docker-compose ps && cd - > /dev/null'
 ### Start docker containers
 
 - Run `dfresh`
-- Run `dps` or `docker-compose ps` and make sure all containers are running.  If not, you can start them individually `docker-compose start <container that failed to start> or check the logs with `docker-compose logs <containerName>.
+- Run `dps` or `docker-compose ps` and make sure all containers are running.  If not, you can start them individually `docker-compose start <container that failed to start>` or check the logs with `docker-compose logs <containerName>`.
