@@ -53,21 +53,7 @@ git clone git@github.com:ps-dev/dvs-sandbox.git
 *Note: In this example, we place dvs-sandbox somewhere below the User's home directory. This is required on Windows.
 For other platforms, you may place the repo anywhere.*
 
-
-## Bash Aliases
-
-Add these to ~/.bashrc (or sometimes ~/.bash_profile)
-
-```bash
-export COMPOSER_HOME=~/repos/dvs-sandbox
-alias ddir='cd $COMPOSER_HOME'
-alias dfresh='$COMPOSER_HOME/scripts/refresh.sh'
-alias dstart='cd $COMPOSER_HOME && docker-compose up -d && cd - > /dev/null'
-alias dstop='cd $COMPOSER_HOME && docker-compose stop && cd - > /dev/null'
-alias dps='cd $COMPOSER_HOME && docker-compose ps && cd - > /dev/null'
-```
-
 ### Start docker containers
 
-- Run `dfresh`
-- Run `dps` or `docker-compose ps` and make sure all containers are running.  If not, you can start them individually `docker-compose start <container that failed to start>` or check the logs with `docker-compose logs <containerName>`.
+- Run `docker-compose up -d` to start all containers.
+- Run `docker-compose ps` and make sure all containers are running (there is a `bootstrap-postgres` container that will have existed.  This is ok).  If not, you can start them individually `docker-compose start <container that failed to start>` or check the logs with `docker-compose logs <containerName>`.
