@@ -57,3 +57,38 @@ For other platforms, you may place the repo anywhere.*
 
 - Run `docker-compose up -d` to start all containers.
 - Run `docker-compose ps` and make sure all containers are running (there is a `bootstrap-postgres` container that will have existed.  This is ok).  If not, you can start them individually `docker-compose start <container that failed to start>` or check the logs with `docker-compose logs <containerName>`.
+
+
+## Sample DVS Workflow
+
+### Ingest Data
+
+Now that our environment is ready, we can start to ingest and replicate data.  The first step is to define the metadata for our ingest stream.  For the exact semantics surrounding the metadata payload, please refer to: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7176245/Metadata+Management+Overview.  For now, we can just use the following sample payload:
+```
+{
+    "subject": "exp.dataplatform.TestSubject",
+    "streamType": "Notification",
+    "derived": false,
+    "dataClassification": "Public",
+    "contact": "bob@myemail.com",
+    "additionalDocumentation": "This is a test stream of data",
+    "notes": "additional notes",
+    "schema": {
+      "namespace": "exp.dataplatform",
+      "name": "TestSubject",
+      "type": "record",
+      "version": 1,
+      "fields": [
+        {
+          "name": "testField",
+          "type": "string"
+        },
+        {
+          "name": "testField2",
+          "type": ["null", "int"],
+          "default": null
+        }
+      ]
+    }
+}
+```
