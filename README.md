@@ -41,16 +41,16 @@ Now let's test a few things to make sure docker is looking good:
 Add service aliases to /etc/hosts and map to 127.0.0.1
 - `127.0.0.1 localhost docker kafka schema-registry zookeeper`
 
-### Clone dp-composer and initialize
+### Clone dvs-sandbox and initialize
 
-Clone dp-composer and initialize using the following commands (git pull them if you already have them):
+Clone dvs-sandbox and initialize using the following commands (git pull them if you already have them):
 
 ```
 cd ~/repos
 git clone git@github.com:ps-dev/dvs-sandbox.git
 ```
 
-*Note: In this example, we place dp-composer somewhere below the User's home directory. This is required on Windows.
+*Note: In this example, we place dvs-sandbox somewhere below the User's home directory. This is required on Windows.
 For other platforms, you may place the repo anywhere.*
 
 
