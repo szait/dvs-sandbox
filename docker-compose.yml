@@ -1,0 +1,97 @@
+---
+version: '3.1'
+services:
+  hydra:
+    image: registry.vnerd.com/hydra:latest
+    volumes:
+      - ./log/:/var/log/hydra
+    ports:
+      - 8088:8088
+      - 2553:2553
+    links:
+      - kafka
+      - schema-registry
+      - consul
+    environment:
+      LOG_DIR: /var/log/hydra/
+      LOG_LEVEL: DEBUG
+      CONSTRUCTR_COORDINATION_HOST: consul
+      CONSTRUCTR_COORDINATION_PORT: 8500
+      CONSUL_ACCESS_TOKEN: token
+      HYDRA_ZOOKEEPER_QUORUM: zookeeper:2181
+      HYDRA_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:29092
+      AKKA_REMOTE_ARTERY_ADVANCED_IDLE_CPU_LEVEL: 1
+      HYDRA_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONSUL_HOST: consul
+
+  hydra-streams:
+    image: registry.vnerd.com/hydra-streams:latest
+    volumes:
+      - ./log/:/var/log/hydra-streams
+    ports:
+      - 8080:8080
+    links:
+      - postgres
+      - kafka
+      - consul
+    environment:
+      LOG_DIR: /var/log/hydra-streams
+      LOG_LEVEL: DEBUG
+      HYDRA_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      HYDRA_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      HYDRA_HTTP_AUTHENTICATOR: hydra.streams.auth.NoSecurityAuthenticator
+      HYDRA_STREAMS_FLYWAY_ENABLED: 'false'
+      DATABASE_URL: jdbc:postgresql://postgres/kstreams
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      CONSTRUCTR_COORDINATION_HOST: consul
+      AKKA_REMOTE_ARTERY_ADVANCED_IDLE_CPU_LEVEL: 1
+      CONSUL_HOST: consul
+
+  postgres:
+    image: postgres:9-alpine
+    volumes:
+      - /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.0.0
+    hostname: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: wurstmeister/kafka:2.11-2.0.0
+    hostname: kafka
+    links:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:29092
+      KAFKA_ADVERTISED_HOST_NAME: kafka:29092
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 30000
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.0.0
+    hostname: schema-registry
+    links:
+      - zookeeper
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+
+  consul:
+    image: consul:1.2.1
+    ports:
+      - 8500:8500
+      - 8300:8300
