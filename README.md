@@ -66,8 +66,6 @@ For other platforms, you may place the repo anywhere.*
 
 ## Sample DVS Workflow
 
-### Ingest Data
-
 Now that our environment is ready, we can start to ingest and replicate data.  The first step is to define the metadata for our ingest stream.  For the exact semantics surrounding the metadata payload, please refer to the [Metadata Documentation](https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7176245/Metadata+Management+Overview).
 
 We've made a collection of HTTP calls in Postman that will help you get off the ground quickly.  First log into Postman using your Okta single sign-on credentials.  Next, look for the drop-down at the top that will allow you to select a team folder and select `data-platform`.  From here, you should see a collection titled `dvs-sandbox`.  Run the scripts in order:
