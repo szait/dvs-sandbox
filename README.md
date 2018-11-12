@@ -66,10 +66,112 @@ For other platforms, you may place the repo anywhere.*
 
 ## Sample DVS Workflow
 
-Now that our environment is ready, we can start to ingest and replicate data.  The first step is to define the metadata for our ingest stream.  For the exact semantics surrounding the metadata payload, please refer to the [Metadata Documentation](https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7176245/Metadata+Management+Overview).
+The basic workflow for using DVS consists of:
 
-We've made a collection of HTTP calls in Postman that will help you get off the ground quickly.  First log into Postman using your Okta single sign-on credentials.  Next, look for the drop-down at the top that will allow you to select a team folder and select `data-platform`.  From here, you should see a collection titled `dvs-sandbox`.  Run the scripts in order:
+1. [Create Topic Metadata](#create-topic-metadata)
+2. [Ingest Data](#ingest-data)
+3. [Create Replication Job](#create-replication-job)
 
-1. Create Topic Metadata
-2. Ingest Data
-3. Create Replication Job
+NOTE:  
+
+We've made a collection of HTTP calls in Postman that will help you get off the ground quickly.  First log into Postman using your Okta single sign-on credentials.  Next, look for the drop-down at the top that will allow you to select a team folder and select `data-platform`.  From here, you should see a collection titled `dvs-sandbox`.
+
+### Create Topic Metadata
+
+Before we can ingest data, we need to configure DVS.  We will need the topic metadata and the schema.  For the exact semantics surrounding the metadata payload, please refer to the [Metadata Documentation](https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7176245/Metadata+Management+Overview).
+
+You can use the Postman template noted above.  But if you prefer the command line, here's how you can use `curl` to post the metadata payload to ingest:
+
+```bash
+curl -X POST \
+  http://localhost:8088/topics \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "subject": "exp.data-platform.dvs-sandbox.Test",
+    "streamType": "History",
+    "derived": false,
+    "dataClassification": "Public",
+    "contact": "slackity slack dont talk back",
+    "notes": "here are some notes topkek",
+    "schema": {
+        "type": "record",
+        "name": "Test",
+        "namespace": "exp.data-platform.dvs-sandbox",
+        "fields": [
+            {
+                "name": "id",
+                "type": "string"
+            },
+            {
+                "name": "messageNumber",
+                "type": "int"
+            },
+            {
+                "name": "messagePublishedAt",
+                "type": {
+                    "type": "string",
+                    "logicalType": "iso-datetime"
+                }
+            }
+        ]
+    }
+}'
+```
+
+### Ingest Data
+
+Next, we can start POSTing data to `/ingest`.  You will see some of the headers below that specify how the data is stored in the DVS.  To get more information on the headers and what they mean, please see the ingest documentation.
+>>>>>>> add curl requests
+
+```bash
+curl -X POST \
+  http://localhost:8088/ingest \
+  -H 'Content-Type: application/json' \
+  -H 'hydra-ack: persisted' \
+  -H 'hydra-kafka-topic: exp.data-platform.dvs-sandbox.Test' \
+  -H 'hydra-schema: exp.data-platform.dvs-sandbox.Test' \
+  -H 'hydra-validation: strict' \
+  -d '{
+    "id": "5de47f5a-1c4f-4128-b537-4f44faabaaa1",
+    "messageNumber": 1,
+    "messagePublishedAt": "2018-11-08T01:00:00+00:00"
+}'
+```
+
+### Create Replication Job
+
+Now that we have some data in the DVS, let's replicate it out to PostgreSQL.  Hydra-streams takes a configuration that tells it where to replicate.  Here's an example below.
+
+```bash
+curl -X POST \
+  http://localhost:8080/dsl \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "replicate": {
+        "applicationId": "data-platform---exp.data-platform.dvs-sandbox.Test",
+        "name": "DataPlatform.DvsSandbox.Test",
+        "connection": {
+            "password": "",
+            "url": "jdbc:postgresql://postgres/postgres",
+            "user": "postgres"
+        },
+        "primaryKeys": {
+            "ps.data-platform.dvs-sandbox.Test": "id"
+        },
+        "startingOffsets": "earliest",
+        "topics": [
+            "exp.data-platform.dvs-sandbox.Test"
+        ]
+    }
+}'
+```
+
+You can verify the data in postgres by using the PostgreSQL client of your choice to the instance running in docker.
+
+```bash
+psql -h localhost -U postgres
+```
+
+```sql
+SELECT * FROM test;
+```
