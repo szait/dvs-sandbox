@@ -166,7 +166,7 @@ curl -X POST \
 ```
 To check to make sure that your replication job is running, go to `localhost:8080` in your browser.  In the `Running` jobs section, you should see a job matching `DataPlatform.DvsSandbox.Test`.  To check to make sure the job has consumed all available records, add `/status` to the end of the previous url.  
 
-You can verify the data in postgres by using the PostgreSQL client of your choice to the instance running in docker.
+You can verify the data is in Postgres by using the PostgreSQL client of your choice to the instance running in docker.
 
 ```bash
 psql -h localhost -U postgres
