@@ -121,7 +121,6 @@ curl -X POST \
 ### Ingest Data
 
 Next, we can start POSTing data to `/ingest`.  You will see some of the headers below that specify how the data is stored in the DVS.  To get more information on the headers and what they mean, please see the ingest documentation.
->>>>>>> add curl requests
 
 ```bash
 curl -X POST \
@@ -165,6 +164,7 @@ curl -X POST \
     }
 }'
 ```
+To check to make sure that your replication job is running, go to `localhost:8080` in your browser.  In the `Running` jobs section, you should see a job matching `DataPlatform.DvsSandbox.Test`.  To check to make sure the job has consumed all available records, add `/status` to the end of the previous url.  
 
 You can verify the data in postgres by using the PostgreSQL client of your choice to the instance running in docker.
 
