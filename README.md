@@ -128,8 +128,6 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -H 'hydra-ack: persisted' \
   -H 'hydra-kafka-topic: exp.data-platform.dvs-sandbox.Test' \
-  -H 'hydra-schema: exp.data-platform.dvs-sandbox.Test' \
-  -H 'hydra-validation: strict' \
   -d '{
     "id": "5de47f5a-1c4f-4128-b537-4f44faabaaa1",
     "messageNumber": 1,
