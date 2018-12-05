@@ -70,9 +70,7 @@ NOTE:
 We've made a collection of HTTP calls in Postman that will help you get off the ground quickly.  First log into Postman using your Okta single sign-on credentials.  Next, look for the drop-down at the top that will allow you to select a team folder and select `data-platform`.  From here, you should see a collection titled `dvs-sandbox`.
 
 
-## Next Steps:
-
-[Creating a Topic and Ingesting data](https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/1474609/Creating+a+Topic+and+Ingesting+Data+Tutorial)
+## Next Step: [Creating Topics and Ingesting data](https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/1474609/Creating+a+Topic+and+Ingesting+Data+Tutorial)
 
 
 
