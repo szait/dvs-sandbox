@@ -1,4 +1,4 @@
-# Data Platform Sandbox Environment
+# Setting up the Data Platform Sandbox Environment
 
 ## Getting Started
 
