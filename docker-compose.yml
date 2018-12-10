@@ -2,6 +2,7 @@
 version: '3.1'
 services:
   hydra:
+    container_name: dvs-hydra
     image: registry.vnerd.com/hydra:latest
     volumes:
       - ./log/:/var/log/hydra
@@ -26,6 +27,7 @@ services:
       BOOTSTRAP_FAILURE_RETRY_MILLIS: 500
 
   hydra-streams:
+    container_name: dvs-hydra-streams
     image: registry.vnerd.com/hydra-streams:latest
     volumes:
       - ./log/:/var/log/hydra-streams
@@ -50,6 +52,7 @@ services:
       CONSUL_HOST: consul
 
   postgres:
+    container_name: dvs-postgres
     image: postgres:9-alpine
     volumes:
       - /var/lib/postgresql/data
@@ -57,6 +60,7 @@ services:
       - 5432:5432
 
   zookeeper:
+    container_name: hydra-zookeeper
     image: confluentinc/cp-zookeeper:5.0.0
     hostname: zookeeper
     ports:
@@ -66,6 +70,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
+    container_name: dvs-kafka
     image: wurstmeister/kafka:2.11-2.0.0
     hostname: kafka
     links:
@@ -80,6 +85,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 30000
 
   schema-registry:
+    container_name: dvs-schema-registry
     image: confluentinc/cp-schema-registry:5.0.0
     hostname: schema-registry
     links:
@@ -92,12 +98,14 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
 
   consul:
+    container_name: dvs-consul
     image: consul:1.2.1
     ports:
       - 8500:8500
       - 8300:8300
 
   bootstrap-postgres:
+    container_name: dvs-bootstrap-postgres
     build:
       context: ./
       dockerfile: Dockerfile
