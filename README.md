@@ -72,9 +72,7 @@ The basic workflow for using DVS consists of:
 2. [Ingest Data](#ingest-data)
 3. [Create Replication Job](#create-replication-job)
 
-NOTE:  
-
-We've made a collection of HTTP calls in Postman that will help you get off the ground quickly.  First log into Postman using your Okta single sign-on credentials.  Next, look for the drop-down at the top that will allow you to select a team folder and select `data-platform`.  From here, you should see a collection titled `dvs-sandbox`.
+NOTE: We've made a collection of HTTP calls in Postman that will help you get off the ground quickly.  First log into Postman using your Okta single sign-on credentials.  Next, look for the drop-down at the top that will allow you to select a team folder and select `data-platform`.  From here, you should see a collection titled `dvs-sandbox`.
 
 ### Create Topic Metadata
 
