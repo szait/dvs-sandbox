@@ -135,7 +135,7 @@ curl -X POST \
 }'
 ```
 
-NOTE: To check that your data is making successfully into the platform, you can navigate to `http://localhost:8080/streams/exp.dataplatform.TestSubject?start=earliest&groupId=test` in your browser and post a new message.  You should see your payload appear on the screen.
+NOTE: To check that your data is being successfully ingested, you can navigate to `http://localhost:8080/streams/exp.dataplatform.TestSubject?start=earliest&groupId=test` in your browser and post a new message.  You should see your payload appear on the screen.
 
 ### Create Replication Job
 
