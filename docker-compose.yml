@@ -23,6 +23,7 @@ services:
       AKKA_REMOTE_ARTERY_ADVANCED_IDLE_CPU_LEVEL: 1
       HYDRA_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       CONSUL_HOST: consul
+      BOOTSTRAP_FAILURE_RETRY_MILLIS: 500
 
   hydra-streams:
     image: registry.vnerd.com/hydra-streams:latest
