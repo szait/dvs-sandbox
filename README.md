@@ -115,6 +115,17 @@ curl -X POST \
                     "type": "string",
                     "logicalType": "iso-datetime"
                 }
+            },
+            {
+                "name": "eventName",
+                "type": "string"
+            },
+            {
+                "name": "eventDate",
+                "type": {
+                  "type": "string",
+                  "logicalType": "iso-datetime"
+                }
             }
         ]
     }
@@ -136,7 +147,9 @@ curl -X POST \
   -d '{
     "id": "5de47f5a-1c4f-4128-b537-4f44faabaaa1",
     "messageNumber": 1,
-    "messagePublishedAt": "2018-11-08T01:00:00+00:00"
+    "messagePublishedAt": "2018-11-08T01:00:00+00:00",
+    "eventName": "TestEvent",
+    "eventDate": "2016-09-18T17:34:02.666Z"
 }'
 ```
 
