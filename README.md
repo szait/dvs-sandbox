@@ -121,7 +121,7 @@ curl -X POST \
 }'
 ```
 
-NOTE: We require a top-level attribute called `hydra.key`.  This identifies the fields which uniquely identify a record.  This is used internally to create derived entity streams from the historical events.  For more information please refer to: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7045155/Schemas+Avro.
+NOTE: We require a top-level attribute in the schema called `hydra.key`.  This identifies the fields which uniquely identify a record.  This is used internally to create derived entity streams from the historical events.  For more information please refer to: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7045155/Schemas+Avro.
 
 ### Ingest Data
 
