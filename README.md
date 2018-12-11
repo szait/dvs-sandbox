@@ -99,6 +99,7 @@ curl -X POST \
         "type": "record",
         "name": "Test",
         "namespace": "exp.data-platform.dvs-sandbox",
+        "hydra.key": "id",
         "fields": [
             {
                 "name": "id",
@@ -120,6 +121,8 @@ curl -X POST \
 }'
 ```
 
+NOTE: We require a top-level attribute called `hydra.key`.  This identifies the fields which uniquely identify a record.  This is used internally to create derived entity streams from the historical events.  For more information please refer to: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7045155/Schemas+Avro.
+
 ### Ingest Data
 
 Next, we can start POSTing data to `/ingest`.  You will see some of the headers below that specify how the data is stored in the DVS.  To get more information on the headers and what they mean, please see the ingest documentation.
@@ -128,7 +131,7 @@ Next, we can start POSTing data to `/ingest`.  You will see some of the headers 
 curl -X POST \
   http://localhost:8088/ingest \
   -H 'Content-Type: application/json' \
-  -H 'hydra-ack: persisted' \
+  -H 'hydra-ack: replicated' \
   -H 'hydra-kafka-topic: exp.data-platform.dvs-sandbox.Test' \
   -d '{
     "id": "5de47f5a-1c4f-4128-b537-4f44faabaaa1",
