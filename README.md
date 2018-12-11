@@ -1,6 +1,6 @@
 # Data Platform Sandbox Environment
 
-NOTE: This tutorial assumes some basic knowledge about the Hydra ecosystem and its underlying technologies, so we strongly recommend that you spend some time with the topics detailed in the Hydra wiki: https://hydra-ps.atlassian.net/wiki/spaces/DES/overview
+_NOTE_: This tutorial assumes some basic knowledge about the Hydra ecosystem and its underlying technologies, so we strongly recommend that you spend some time with the topics detailed in the Hydra wiki: https://hydra-ps.atlassian.net/wiki/spaces/DES/overview
 
 In particular, we recommend you read the pages under: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/1638566/Data+Ingestion+Overview to get an overview of the subject naming conventions and avro schema creation.
 
@@ -132,7 +132,7 @@ curl -X POST \
 }'
 ```
 
-NOTE: A few fields are highly recommended to add to your schema, including a top-level attribute called `hydra.key`, which defines which fields uniquely define a record, and an `eventName` and `eventDate`, which are useful for event-sourcing.  For more information on creating your schema, please refer to: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7045155/Schemas+Avro.
+_NOTE_: A few fields are highly recommended to add to your schema, including a top-level attribute called `hydra.key`, which defines which fields uniquely define a record, and an `eventName` and `eventDate`, which are useful for event-sourcing.  For more information on creating your schema, please refer to: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/7045155/Schemas+Avro.
 
 ### Ingest Data
 
@@ -153,7 +153,7 @@ curl -X POST \
 }'
 ```
 
-NOTE: To check that your data is being successfully ingested, you can navigate to `http://localhost:8080/streams/exp.dataplatform.TestSubject?start=earliest&groupId=test` in your browser and post a new message.  You should see your payload appear on the screen.
+_NOTE_: To check that your data is being successfully ingested, you can navigate to `http://localhost:8080/streams/exp.dataplatform.TestSubject?start=earliest&groupId=test` in your browser and post a new message.  You should see your payload appear on the screen.
 
 ### Create Replication Job
 
