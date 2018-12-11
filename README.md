@@ -93,8 +93,8 @@ curl -X POST \
     "streamType": "History",
     "derived": false,
     "dataClassification": "Public",
-    "contact": "slackity slack dont talk back",
-    "notes": "here are some notes topkek",
+    "contact": "bob@myemail.com",
+    "notes": "here are some notes",
     "schema": {
         "type": "record",
         "name": "Test",
