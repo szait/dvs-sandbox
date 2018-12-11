@@ -1,5 +1,9 @@
 # Data Platform Sandbox Environment
 
+NOTE: This tutorial assumes some basic knowledge about the Hydra ecosystem and its underlying technologies, so we strongly recommend that you spend some time with the topics detailed in the Hydra wiki: https://hydra-ps.atlassian.net/wiki/spaces/DES/overview
+
+In particular, we recommend you read: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/1638566/Data+Ingestion+Overview to get an overview of the subject naming conventions and avro schema creation.
+
 ## Getting Started
 
 ### Install Docker (Community Edition)
@@ -173,7 +177,3 @@ psql -h localhost -U postgres
 ```sql
 SELECT * FROM test;
 ```
-
-For more in-depth treatment for the topics above, we recommend that you visit the official wiki: https://hydra-ps.atlassian.net/wiki/spaces/DES/overview.  
-
-In particular, we recommend you read: https://hydra-ps.atlassian.net/wiki/spaces/DES/pages/1638566/Data+Ingestion+Overview to get an overview of the subject naming conventions and avro schema creation.
